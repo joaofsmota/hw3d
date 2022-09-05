@@ -1,5 +1,5 @@
-#ifndef MEM_ARENA_H
-#define MEM_ARENA_H
+#ifndef MEM_ZONE_H
+#define MEM_ZONE_H
 
 #include "../../defines.h"
 #include "../../types.h"

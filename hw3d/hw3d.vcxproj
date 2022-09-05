@@ -146,13 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\memory\mem_arena.cpp" />
+    <ClCompile Include="src\core\memory\mem_zone.cpp" />
     <ClCompile Include="src\platform\win32_platform.cpp" />
     <ClCompile Include="src\platform\win32_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\debug.h" />
-    <ClInclude Include="src\core\memory\mem_arena.h" />
+    <ClInclude Include="src\core\memory\mem_zone.h" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\platform\win32_debug.h" />
     <ClInclude Include="src\platform\win32_window.h" />
