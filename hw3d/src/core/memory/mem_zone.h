@@ -4,9 +4,13 @@
 #include "../../defines.h"
 #include "../../types.h"
 
+/*
+	Arena/Zone-Based Allocation; Derived from: https://www.pbr-book.org/3ed-2018/Utilities/Memory_Management#fragment-MemoryDeclarations-3
+*/
+
 namespace memory {
 
-	// 'constexpr' funstions will be implicitly inlined => no need for IFORCE_INLINE
+	// 'constexpr' functions will be implicitly inlined => no need for IFORCE_INLINE
 	constexpr u64 Kilobytes(const u64 value) {
 		return((u64)((value) * 1024));
 	}
