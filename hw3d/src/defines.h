@@ -4,7 +4,7 @@
 #define IDEBUG
 
 #if defined (_WIN32)
-	#define IWIN32_BUILD_AND_DEBUG
+	#define IWIN32_DEBUG_BUILD
 	/*
 	MSVC is preferable for compilation on Windows.
 	MSVC specific.

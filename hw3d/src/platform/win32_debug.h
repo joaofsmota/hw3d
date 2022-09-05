@@ -6,7 +6,7 @@
 /*
 	Win32 api dependent Log system.
 */
-#ifdef IWIN32_BUILD_AND_DEBUG 
+#ifdef IWIN32_DEBUG_BUILD 
 
 	#define WIN32_LEAN_AND_MEAN
 	#include <Windows.h>
