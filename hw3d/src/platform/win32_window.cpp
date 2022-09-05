@@ -5,14 +5,12 @@
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-using namespace win32_debug;
-
 bool 
 win32_window_context_make(Win32_Window_Context_t* pContext,
 	HINSTANCE instance,
 	std::string title,
 	std::string className,
-	const int width, const int height, const int flags){
+	const s32 width, const s32 height, const s32 flags){
 
 	if (pContext->window_ != NULL) return(false);
 
@@ -54,7 +52,7 @@ win32_window_context_make(Win32_Window_Context_t* pContext,
 
 	if (pContext->window_ == NULL)
 	{
-		Log(GetLastError(), "CreateWindowEx Failed for window: " + title);
+		win32_debug::Log(GetLastError(), "CreateWindowEx Failed for window: " + title);
 
 		return(false);
 	}

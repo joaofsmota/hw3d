@@ -45,9 +45,11 @@ win32_window_context_make(Win32_Window_Context_t* pContext,
 	HINSTANCE instance,
 	std::string title,
 	std::string className,
-	const int width, const int height, const int flags);
+	const s32 width, const s32 height, const s32 flags);
 
-extern inline bool 
+#include "../defines.h"
+
+IFORCE_INLINE bool 
 win32_window_proc_msg(Win32_Window_Context_t& context) {
 
 	MSG msg = { 0 };

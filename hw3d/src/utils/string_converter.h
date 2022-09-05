@@ -2,12 +2,13 @@
 #define STRING_CONVERTER_H
 
 #include <string>
+#include "../defines.h"
 
 namespace utils {
 	/*
 		DX11 API expects wide strings.
 	*/
-	inline std::wstring string_to_wstring(std::string str) {
+	IFORCE_INLINE std::wstring string_to_wstring(std::string str) {
 		return(std::wstring(str.begin(), str.end()));
 	}
 }
