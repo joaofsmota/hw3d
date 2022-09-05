@@ -12,7 +12,7 @@ namespace memory {
 
 	// 'constexpr' functions will be implicitly inlined => no need for IFORCE_INLINE
 	constexpr u64 Kilobytes(const u64 value) {
-		return((u64)((value) * 1024));
+		return((u64)((value) * 1024)); // will further u64 casting be necessary ?
 	}
 	constexpr u64 Megabytes(const u64 value) {
 		return((u64)(Kilobytes(value) * 1024));
