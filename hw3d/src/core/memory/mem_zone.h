@@ -6,6 +6,7 @@
 
 /*
 	Arena/Zone-Based Allocation; Derived from: https://www.pbr-book.org/3ed-2018/Utilities/Memory_Management#fragment-MemoryDeclarations-3
+	Why: To prevent "allocation fests"; Bound available memory.
 */
 
 namespace memory {
