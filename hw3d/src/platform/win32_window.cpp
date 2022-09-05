@@ -10,7 +10,7 @@ win32_window_context_make(Win32_Window_Context_t* pContext,
 	HINSTANCE instance,
 	std::string title,
 	std::string className,
-	const s32 width, const s32 height, const s32 flags){
+	const int width, const int height, const int flags){
 
 	if (pContext->window_ != NULL) return(false);
 
