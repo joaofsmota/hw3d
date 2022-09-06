@@ -7,6 +7,8 @@
     Windows app entry point.
 */
 
+W32WC_t CEngine::Win32WindowContext = {};
+
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR pCmdLine, _In_ int nCmdShow)
@@ -15,7 +17,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     (void)pCmdLine; 
     (void)nCmdShow; 
 
-    CEngine::Win32WindowContext = {};
     if (!CEngine::win32_window_context_make(&CEngine::Win32WindowContext, hInstance, "Title", "WindowClass", 1280, 820, 0)) {
         return(-1);
     };

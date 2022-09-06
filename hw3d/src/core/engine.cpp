@@ -3,8 +3,6 @@
 #include "../platform/win32_debug.h"
 #include "../utils/string_converter.h"
 
-W32WC_t CEngine::Win32WindowContext = {};
-
 bool CEngine::win32_window_context_make(W32WC_t* pContext,
 	HINSTANCE instance,
 	std::string title,
