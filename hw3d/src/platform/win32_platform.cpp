@@ -1,11 +1,12 @@
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "DirectXTK")
 
-#include "../core/engine.h" // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>. 
-
 /*
     Windows app entry point.
 */
+
+#include "../core/engine.h"
+using namespace engine::win32; // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>. 
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -17,11 +18,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 
     W32WC_t win32WindowContext = {};
 
-    if (!engine::win32_window_context_make(&win32WindowContext, hInstance, "Title", "WindowClass", 1280, 820, 0)) {
+    if (!win32_window_context_make(&win32WindowContext, hInstance, "Title", "WindowClass", 1280, 820, 0)) {
         return(-1);
     };
 
-    for (; engine::win32_window_proc_msg(win32WindowContext) != false;)
+    for (; win32_window_proc_msg(win32WindowContext) != false;)
     {
         Sleep(50);
     }
