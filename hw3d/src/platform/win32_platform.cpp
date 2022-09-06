@@ -5,8 +5,7 @@
     Windows app entry point.
 */
 
-#include "../core/engine.h"
-using namespace engine::win32; // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>. 
+#include "win32_window.h" // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>. 
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,

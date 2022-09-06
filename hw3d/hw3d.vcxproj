@@ -149,6 +149,7 @@
     <ClCompile Include="src\core\engine.cpp" />
     <ClCompile Include="src\core\memory\mem_zone.cpp" />
     <ClCompile Include="src\platform\win32_platform.cpp" />
+    <ClCompile Include="src\platform\win32_window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\debug.h" />

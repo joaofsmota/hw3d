@@ -38,6 +38,36 @@ struct Win32_Window_Context_t
 	int W_, H_, flags_;
 } typedef W32WC_t;
 
+bool win32_window_context_make(W32WC_t* pContext,
+	HINSTANCE instance,
+	std::string title,
+	std::string className,
+	const int width, const int height, const int flags);
+
+#include "../defines.h"
+
+IFORCE_INLINE bool win32_window_proc_msg(W32WC_t& context) {
+	MSG msg = { 0 };
+	ZeroMemory(&msg, sizeof(MSG));
+
+	if (PeekMessage(&msg, context.window_, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	if (msg.message == WM_NULL)
+	{
+		if (!IsWindow(context.window_)) {
+			context.window_ = NULL;
+			UnregisterClass(context.wClassName_.c_str(), context.hInstance_);
+			return(false);
+		}
+	}
+
+	return(true);
+}
+
 
 #endif // !WIN32_WINDOW_H
 
