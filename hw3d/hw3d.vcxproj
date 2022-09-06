@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\engine.cpp" />
     <ClCompile Include="src\core\memory\mem_zone.cpp" />
     <ClCompile Include="src\platform\win32_platform.cpp" />
   </ItemGroup>
@@ -158,6 +159,9 @@
     <ClInclude Include="src\platform\win32_window.h" />
     <ClInclude Include="src\types.h" />
     <ClInclude Include="src\utils\string_converter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
