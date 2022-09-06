@@ -23,7 +23,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 
     for (; win32_window_proc_msg(win32WindowContext) != false;)
     {
-        Sleep(50);
+        Sleep(200);
     }
 
     return(0);

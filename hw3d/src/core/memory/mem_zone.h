@@ -4,10 +4,15 @@
 #include "../../defines.h"
 #include "../../types.h"
 
+#include "../debug.h"
+
 /*
 	Arena/Zone-Based Allocation; Derived from: https://www.pbr-book.org/3ed-2018/Utilities/Memory_Management#fragment-MemoryDeclarations-3
 	Why: To prevent "allocation fests"; Bound available memory.
 */
+
+#include <stdint.h>
+#include <list>
 
 namespace memory {
 
@@ -24,14 +29,18 @@ namespace memory {
 
 	struct Mem_Zone_t
 	{
-		Mem_Zone_t(void) {
+		Mem_Zone_t(size_t blockSize = 262144) : blockSize_(blockSize) {
+			currentBlock_ = (uint8_t*)NULL;
 
 		}
 		~Mem_Zone_t(void) {
 
 		}
 	private:
-
+		const size_t blockSize_;
+		u64 currentBlockPos_ = 0, currentAllocSize_ = 0;
+		uint8_t* currentBlock_;
+		std::list<std::pair<size_t, uint8_t*>> usedBlocks_, availableBlocks_;
 	};
 
 }
