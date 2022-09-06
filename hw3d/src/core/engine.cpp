@@ -23,7 +23,7 @@ bool CEngine::win32_window_context_make(W32WC_t* pContext,
 	WNDCLASSEX wc = { };
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wc.lpfnWndProc = win32_window_proc;
+	wc.lpfnWndProc = CEngine::win32_window_proc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = instance;
