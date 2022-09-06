@@ -10,23 +10,17 @@
 
 #include "../platform/win32_window.h"
 
-#if !defined(internal)
-	#define internal static
-#endif
-
-struct CEngine
+namespace engine
 {
-	internal W32WC_t w32WCGlobal;
+	LRESULT win32_window_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	internal LRESULT win32_window_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	bool win32_window_context_make(W32WC_t* pContext,
+				HINSTANCE instance,
+				std::string title,
+				std::string className,
+				const int width, const int height, const int flags);
 
-	internal bool win32_window_context_make(W32WC_t* pContext,
-						HINSTANCE instance,
-						std::string title,
-						std::string className,
-						const int width, const int height, const int flags);
-
-	internal IFORCE_INLINE bool win32_window_proc_msg(W32WC_t& context) {
+	IFORCE_INLINE bool win32_window_proc_msg(W32WC_t& context) {
 		MSG msg = { 0 };
 		ZeroMemory(&msg, sizeof(MSG));
 
@@ -48,6 +42,6 @@ struct CEngine
 		return(true);
 	}
 
-};
+}
 
 #endif // !ENGINE_H
