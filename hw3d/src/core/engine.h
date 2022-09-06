@@ -2,8 +2,8 @@
 #define ENGINE_H
 
 /*
-	CEngine class borrows platform specific functionality. 
-	Why? This class glues together all the functions needed to make a platform specific window context and run it on the main loop.
+	engine namespace holds platform specific functionality. 
+	Why? engine bundles all the functions needed to make a platform specific window context and run it on the main loop.
 */
 
 #include "debug.h"
