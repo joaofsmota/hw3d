@@ -9,7 +9,7 @@
 	MSVC is preferable for compilation on Windows.
 	MSVC specific.
 	*/
-	#define IFORCE_INLINE __forceinline
+	#define force_inline __forceinline
 #elif defined (__linux)
 	#define PLATFORM "Linux"
 #endif

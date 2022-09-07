@@ -1,11 +1,10 @@
-#pragma comment(lib, "d3d11")
-#pragma comment(lib, "DirectXTK")
-
 /*
     Windows app entry point.
 */
 
-#include "win32_window.h" // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>. 
+#include "win32_window.h" // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>.
+
+#include "../renderer/d3d11_renderer.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -16,10 +15,14 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     (void)nCmdShow; 
 
     W32WC_t win32WindowContext = {};
-
     if (!win32_window_context_make(&win32WindowContext, hInstance, "Title", "WindowClass", 1280, 820, 0)) {
         return(-1);
-    };
+    }
+
+    D3D11DC_t d3d11Context = {};
+    if (!d3d11_context_make(win32WindowContext.window, win32WindowContext.width, win32WindowContext.height)){
+        return(-1);
+    }
 
     for (; win32_window_proc_msg(win32WindowContext) != false;)
     {

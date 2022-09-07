@@ -15,10 +15,10 @@
 	#include "../utils/string_converter.h" // includes <string>.
 
 	namespace win32_debug {
-		IFORCE_INLINE int Log(std::string message) {
+		force_inline int Log(std::string message) {
 			return(MessageBoxA(NULL, message.c_str(), "Info", MB_ICONINFORMATION));
 		}
-		IFORCE_INLINE int Log(const HRESULT hr, std::string message) {
+		force_inline int Log(const HRESULT hr, std::string message) {
 			_com_error error(hr);
 			std::wstring errorMessage{ L"Error: " + utils::string_to_wstring(message) + L"\n" + error.ErrorMessage() };
 			return(MessageBoxW(NULL, errorMessage.c_str(), L"Error", MB_ICONERROR));

@@ -12,16 +12,16 @@ bool win32_window_context_make(W32WC_t* pContext,
 	std::string className,
 	const int width, const int height, const int flags) {
 
-	if (pContext->window_ != NULL) return(false);
+	if (pContext->window != NULL) return(false);
 
-	pContext->hInstance_ = instance;
-	pContext->W_ = width;
-	pContext->H_ = height;
-	pContext->flags_ = flags;
-	pContext->title_ = title;
-	pContext->className_ = className;
-	pContext->wTitle_ = utils::string_to_wstring(title);
-	pContext->wClassName_ = utils::string_to_wstring(className);
+	pContext->hInstance = instance;
+	pContext->width = width;
+	pContext->height = height;
+	pContext->flags = flags;
+	pContext->title = title;
+	pContext->className = className;
+	pContext->wTitle = utils::string_to_wstring(title);
+	pContext->wClassName = utils::string_to_wstring(className);
 
 	WNDCLASSEX wc = { };
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -35,14 +35,14 @@ bool win32_window_context_make(W32WC_t* pContext,
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = NULL;
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = pContext->wClassName_.c_str();
+	wc.lpszClassName = pContext->wClassName.c_str();
 
 	AssertRaw(RegisterClassEx(&wc) != 0)
 
-		pContext->window_ = CreateWindowEx(
+		pContext->window = CreateWindowEx(
 			WS_EX_APPWINDOW,
 			wc.lpszClassName,
-			pContext->wTitle_.c_str(),
+			pContext->wTitle.c_str(),
 			WS_VISIBLE | (WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME), // <- flags
 			CW_USEDEFAULT, CW_USEDEFAULT,
 			width, height,
@@ -50,7 +50,7 @@ bool win32_window_context_make(W32WC_t* pContext,
 			instance,
 			NULL);
 
-	if (pContext->window_ == NULL)
+	if (pContext->window == NULL)
 	{
 		win32_debug::Log(GetLastError(), "CreateWindowEx Failed for window: " + title);
 
@@ -58,10 +58,10 @@ bool win32_window_context_make(W32WC_t* pContext,
 	}
 	else
 	{
-		AssertRaw(ShowWindow(pContext->window_, SW_SHOW) != 0)
-			AssertRaw(SetForegroundWindow(pContext->window_) != 0)
-			AssertRaw(UpdateWindow(pContext->window_) != 0)
-			SetFocus(pContext->window_);
+		AssertRaw(ShowWindow(pContext->window, SW_SHOW) != 0)
+			AssertRaw(SetForegroundWindow(pContext->window) != 0)
+			AssertRaw(UpdateWindow(pContext->window) != 0)
+			SetFocus(pContext->window);
 
 		return(true);
 	}
@@ -73,6 +73,9 @@ LRESULT win32_window_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	case WM_CLOSE: {
 		DestroyWindow(hwnd);
 	}break;
+	case WM_MOUSEMOVE: {
+
+	}break; 
 	case WM_SIZE: {
 	}break;
 	case WM_DESTROY: {

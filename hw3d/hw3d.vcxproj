@@ -150,6 +150,7 @@
     <ClCompile Include="src\core\memory\mem_zone.cpp" />
     <ClCompile Include="src\platform\win32_platform.cpp" />
     <ClCompile Include="src\platform\win32_window.cpp" />
+    <ClCompile Include="src\renderer\d3d11_renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\debug.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\platform\win32_debug.h" />
     <ClInclude Include="src\platform\win32_window.h" />
+    <ClInclude Include="src\renderer\d3d11_renderer.h" />
     <ClInclude Include="src\types.h" />
     <ClInclude Include="src\utils\string_converter.h" />
   </ItemGroup>
