@@ -6,22 +6,22 @@
 
 LRESULT win32_window_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-bool win32_window_context_make(W32WC_t* pContext,
+bool win32_window_context_make(W32WC* pWin32WindowContext,
 	HINSTANCE instance,
 	std::string title,
 	std::string className,
 	const int width, const int height, const int flags) {
 
-	if (pContext->window != NULL) return(false);
+	if (pWin32WindowContext->window != NULL) return(false);
 
-	pContext->hInstance = instance;
-	pContext->width = width;
-	pContext->height = height;
-	pContext->flags = flags;
-	pContext->title = title;
-	pContext->className = className;
-	pContext->wTitle = utils::string_to_wstring(title);
-	pContext->wClassName = utils::string_to_wstring(className);
+	pWin32WindowContext->hInstance = instance;
+	pWin32WindowContext->width = width;
+	pWin32WindowContext->height = height;
+	pWin32WindowContext->flags = flags;
+	pWin32WindowContext->title = title;
+	pWin32WindowContext->className = className;
+	pWin32WindowContext->wTitle = utils::string_to_wstring(title);
+	pWin32WindowContext->wClassName = utils::string_to_wstring(className);
 
 	WNDCLASSEX wc = { };
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -35,22 +35,22 @@ bool win32_window_context_make(W32WC_t* pContext,
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = NULL;
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = pContext->wClassName.c_str();
+	wc.lpszClassName = (pWin32WindowContext->wClassName).c_str();
 
 	AssertRaw(RegisterClassEx(&wc) != 0)
 
-		pContext->window = CreateWindowEx(
-			WS_EX_APPWINDOW,
-			wc.lpszClassName,
-			pContext->wTitle.c_str(),
-			WS_VISIBLE | (WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME), // <- flags
-			CW_USEDEFAULT, CW_USEDEFAULT,
-			width, height,
-			NULL, NULL,
-			instance,
-			NULL);
+	pWin32WindowContext->window = CreateWindowEx(
+		WS_EX_APPWINDOW,
+		wc.lpszClassName,
+		(pWin32WindowContext->wTitle).c_str(),
+		WS_VISIBLE | (WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME), // <- flags
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		width, height,
+		NULL, NULL,
+		instance,
+		NULL);
 
-	if (pContext->window == NULL)
+	if (pWin32WindowContext->window == NULL)
 	{
 		win32_debug::Log(GetLastError(), "CreateWindowEx Failed for window: " + title);
 
@@ -58,10 +58,10 @@ bool win32_window_context_make(W32WC_t* pContext,
 	}
 	else
 	{
-		AssertRaw(ShowWindow(pContext->window, SW_SHOW) != 0)
-			AssertRaw(SetForegroundWindow(pContext->window) != 0)
-			AssertRaw(UpdateWindow(pContext->window) != 0)
-			SetFocus(pContext->window);
+		AssertRaw(ShowWindow(pWin32WindowContext->window, SW_SHOW) != 0)
+		AssertRaw(SetForegroundWindow(pWin32WindowContext->window) != 0)
+		AssertRaw(UpdateWindow(pWin32WindowContext->window) != 0)
+		SetFocus(pWin32WindowContext->window);
 
 		return(true);
 	}
@@ -81,7 +81,7 @@ LRESULT win32_window_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	case WM_DESTROY: {
 		PostQuitMessage(0);
 	}break;
-	default: return(DefWindowProcA(hwnd, msg, wParam, lParam));
+	default: return(DefWindowProcW(hwnd, msg, wParam, lParam));
 	}
 	return(0);
 }

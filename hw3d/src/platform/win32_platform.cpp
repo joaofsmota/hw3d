@@ -1,10 +1,24 @@
 /*
     Windows app entry point.
 */
+#include "../core/engine.h"
 
 #include "win32_window.h" // defines WIN32_LEAN_AND_MEAN + includes <Windows.h>.
 
-#include "../renderer/d3d11_renderer.h"
+#include "../renderer/d3d11/d3d11_renderer.h"
+#include "../renderer/d3d11/shader.h"
+
+struct engine_t {
+    engine_t(void) {
+        windowContext = {};
+        gfxContext = {};
+    }
+    ~engine_t(void) {}
+    W32WC windowContext;
+    D3D11GC gfxContext;
+};
+
+static engine_t globalEngine = {}; 
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -12,21 +26,31 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 {
     (void)hPrevInstance; 
     (void)pCmdLine; 
-    (void)nCmdShow; 
+    (void)nCmdShow;
 
-    W32WC_t win32WindowContext = {};
-    if (!win32_window_context_make(&win32WindowContext, hInstance, "Title", "WindowClass", 1280, 820, 0)) {
-        return(-1);
-    }
-
-    D3D11DC_t d3d11Context = {};
-    if (!d3d11_context_make(win32WindowContext.window, win32WindowContext.width, win32WindowContext.height)){
-        return(-1);
-    }
-
-    for (; win32_window_proc_msg(win32WindowContext) != false;)
     {
-        Sleep(200);
+        if (!win32_window_context_make(&globalEngine.windowContext, hInstance, "Title", "WindowClass", 1280, 820, 0))
+            return(-1);
+
+
+        if (!d3d11_context_make(&globalEngine.gfxContext,
+            globalEngine.windowContext.window,
+            globalEngine.windowContext.width,
+            globalEngine.windowContext.height)) return(-1);
+
+        if (!Pipeline::init_shader_stage(&globalEngine.gfxContext)) return(-1);
+
+
+        shader_t<D3D11SHADER::VertexShader> v = {};
+        CmdShader<D3D11SHADER::VertexShader>::init(&v, globalEngine.gfxContext.device, L"");
+
+        for (; win32_window_proc_msg(globalEngine.windowContext) != false;)
+        {
+
+            d3d11_render_frame(&globalEngine.gfxContext);
+
+            Sleep(200);
+        }
     }
 
     return(0);

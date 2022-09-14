@@ -6,9 +6,9 @@
 
 #include <string>
 
-struct W32WindowContext_t
+struct win32_wnd_context_t
 {
-	W32WindowContext_t(void) {
+	win32_wnd_context_t(void) {
 		window = NULL;
 		hInstance = NULL;
 		width = 0;
@@ -19,7 +19,7 @@ struct W32WindowContext_t
 		wTitle = L"";
 		wClassName = L"";
 	}
-	~W32WindowContext_t(void) {
+	~win32_wnd_context_t(void) {
 
 		if (window != NULL)
 		{
@@ -36,9 +36,9 @@ struct W32WindowContext_t
 	std::wstring wTitle;
 	std::wstring wClassName;
 	int width, height, flags;
-} typedef W32WC_t;
+} typedef W32WC;
 
-bool win32_window_context_make(W32WC_t* pContext,
+bool win32_window_context_make(W32WC* pWin32WindowContext,
 	HINSTANCE instance,
 	std::string title,
 	std::string className,
@@ -46,11 +46,11 @@ bool win32_window_context_make(W32WC_t* pContext,
 
 #include "../defines.h"
 
-force_inline bool win32_window_proc_msg(W32WC_t& context) {
+force_inline bool win32_window_proc_msg(W32WC& refWin32WindowContext) {
 	MSG msg = { 0 };
 	ZeroMemory(&msg, sizeof(MSG));
 
-	if (PeekMessage(&msg, context.window, 0, 0, PM_REMOVE))
+	while (PeekMessage(&msg, refWin32WindowContext.window, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -58,9 +58,9 @@ force_inline bool win32_window_proc_msg(W32WC_t& context) {
 
 	if (msg.message == WM_NULL)
 	{
-		if (!IsWindow(context.window)) {
-			context.window = NULL;
-			UnregisterClass(context.wClassName.c_str(), context.hInstance);
+		if (!IsWindow(refWin32WindowContext.window)) {
+			refWin32WindowContext.window = NULL;
+			UnregisterClass(refWin32WindowContext.wClassName.c_str(), refWin32WindowContext.hInstance);
 			return(false);
 		}
 	}
